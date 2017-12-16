@@ -7,5 +7,5 @@ An intelligent virtual assistant that answers weather related questions.
 * [Google Cloud Speech API](https://cloud.google.com/speech/) - convert voice input to text
 
 ## Suggested Work
-* To generate audio visualization for the speech input.
+* To generate audio visualization for the speech input instead of a random audio in byte array.
 * Make changes in the webhook implementation for yahoo weather API.
