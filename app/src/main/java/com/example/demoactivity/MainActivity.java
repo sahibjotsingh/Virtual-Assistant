@@ -18,23 +18,16 @@ import android.widget.TextView;
 import com.yalantis.waves.util.Horizon;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.Map;
 
+import ai.api.AIDataService;
+import ai.api.AIServiceException;
 import ai.api.android.AIConfiguration;
-import ai.api.*;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
-import ai.api.model.Metadata;
 import ai.api.model.Result;
-import ai.api.model.Status;
-import ai.api.android.GsonFactory;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 public class MainActivity extends Activity implements RecognitionListener
 {
@@ -47,8 +40,8 @@ public class MainActivity extends Activity implements RecognitionListener
     Horizon mHorizon;
     Thread thread;
     private boolean start=false;
-    private int flag=0;
-    private String input="";
+    private int flag = 0;
+    private String input = "";
 
     private static final int RECORDER_SAMPLERATE = 44100;
     private static final int RECORDER_CHANNELS = 1;
@@ -59,8 +52,6 @@ public class MainActivity extends Activity implements RecognitionListener
 
     final AIRequest aiRequest = new AIRequest();
     private AIDataService aiDataService;
-
-    private Gson gson = GsonFactory.getGson();
     private TextToSpeech tts;
 
     @Override
@@ -69,7 +60,7 @@ public class MainActivity extends Activity implements RecognitionListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        conversation=(TextView)findViewById(R.id.text_view);
+        conversation = (TextView)findViewById(R.id.text_view);
         conversation.setMovementMethod(new ScrollingMovementMethod());
 
         glSurfaceView = (GLSurfaceView) findViewById(R.id.gl_surface);
@@ -97,7 +88,7 @@ public class MainActivity extends Activity implements RecognitionListener
             @Override
             public void onClick(View v)
             {
-                if(flag==0)
+                if(flag == 0)
                 {
                     speech.startListening(recognizerIntent);
                 }
@@ -108,7 +99,7 @@ public class MainActivity extends Activity implements RecognitionListener
             }
         });
 
-        tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener()
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener()
         {
             @Override
             public void onInit(int status)
@@ -313,40 +304,37 @@ public class MainActivity extends Activity implements RecognitionListener
             @Override
             public void run()
             {
-                final Status status = response.getStatus();
-                //Log.i(TAG, "Status code: " + status.getCode());
-                //Log.i(TAG, "Status type: " + status.getErrorType());
+                //final Status status = response.getStatus();
 
                 final Result result = response.getResult();
-                //Log.i(TAG, "Resolved query: " + result.getResolvedQuery());
 
-                //Log.i(TAG, "Action: " + result.getAction());
                 final String speech = result.getFulfillment().getSpeech() + "\n\n";
+
                 String str=conversation.getText().toString();
                 str += speech;
                 conversation.setText(str);
                 tts.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
-                //Log.i(TAG, "Speech: " + speech);
 
+                /*
                 final Metadata metadata = result.getMetadata();
                 if (metadata != null)
                 {
-                    //Log.i(TAG, "Intent id: " + metadata.getIntentId());
-                    //Log.i(TAG, "Intent name: " + metadata.getIntentName());
+                    Log.i(TAG, "Intent id: " + metadata.getIntentId());
+                    Log.i(TAG, "Intent name: " + metadata.getIntentName());
                 }
 
                 final HashMap<String, JsonElement> params = result.getParameters();
                 if (params != null && !params.isEmpty())
                 {
-                    //Log.i(TAG, "Parameters: ");
+                    Log.i(TAG, "Parameters: ");
                     for (final Map.Entry<String, JsonElement> entry : params.entrySet())
                     {
-                        //Log.i(TAG, String.format("%s: %s", entry.getKey(), entry.getValue().toString()));
+                        Log.i(TAG, String.format("%s: %s", entry.getKey(), entry.getValue().toString()));
                     }
                 }
+                */
             }
 
         });
     }
 }
-
