@@ -33,12 +33,12 @@ public class MainActivity extends Activity implements RecognitionListener
 {
     Random rand = new Random();
 
-    GLSurfaceView glSurfaceView;
+    private GLSurfaceView glSurfaceView;
     private TextView conversation;
     private ImageView mSpeakBtn;
 
-    Horizon mHorizon;
-    Thread thread;
+    private Horizon mHorizon;
+    private Thread thread;
     private boolean start=false;
     private int flag = 0;
     private String input = "";
