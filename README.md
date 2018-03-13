@@ -6,6 +6,10 @@ An intelligent virtual assistant that answers weather related questions.
 * [Horizon](https://github.com/Yalantis/Horizon) 
 * [Android Speech to Text API](https://developer.android.com/reference/android/speech/RecognizerIntent.html) 
 
+## Steps to Run
+1. Setup Dialogflow with [webhook implementation of yahoo weather API](https://github.com/sahibjotsingh/fulfillment-webhook-weather-python).
+2. Include the client access token of Dialogflow in the source code.
+
 ## Screenshots
 ![a](https://user-images.githubusercontent.com/22634590/34404492-eb928b84-ebd3-11e7-82de-fc6ca85bc2af.png)
 ![b](https://user-images.githubusercontent.com/22634590/34404493-ebd6d8f2-ebd3-11e7-82f8-01daf9252f48.png)
